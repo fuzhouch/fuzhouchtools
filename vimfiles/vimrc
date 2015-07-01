@@ -1,0 +1,104 @@
+" configuration for fuzhouch
+set nocompatible
+set guioptions-=T
+
+set fileencodings=""
+set fileencoding=""
+if has("win32")
+    set bomb
+    set fileencodings=ucs-bom,cp936,utf8,ucs-2,utf-16,utf-16le
+    set encoding=cp936
+    set termencoding=cp936
+else
+    " Fallback to Mac
+    set fileencodings=ucs-bom,utf8,cp936,ucs-2,utf-16,utf-16le
+    set encoding=utf8
+    set termencoding=utf8
+    if has("gui_running")
+        set guifont=Monaco:h12
+    endif
+    set visualbell
+endif
+
+" Disable ruler in Cygwin environment.
+if has("win32unix")
+    set noruler
+endif
+
+" Set information to use English so we can read on terminal.
+language messages C
+set showmatch
+set ruler
+set mouse=a
+set modeline
+set modelines=5
+set number
+set backspace=indent,eol,start whichwrap+=<,>,[,]
+" Remember the last line number
+autocmd BufReadPost * if (line("'\"") > 0 && line("'\"") <= line("$")) | exe "normal g'\"" | endif
+
+set expandtab
+set shiftwidth=4
+set incsearch
+set hlsearch
+set textwidth=72
+set colorcolumn=72
+
+if has("gui_running")
+    colorscheme torte
+else
+    colorscheme desert
+endif
+
+call plug#begin('~/.vim/bundle')
+Plug 'elixir-lang/vim-elixir'
+Plug 'mattonrails/vim-mix'
+call plug#end()
+
+syntax on
+filetype plugin indent on
+
+" SCons
+au BufEnter SConscript :set ft=python
+" Objective-C++
+au BufEnter *.mm :set ft=objc
+" Elixir
+au BufEnter *.exs :set ft=elixir
+
+
+if has("win32")
+    set selectmode="mouse,key"
+    set keymodel="startsel,stopsel"
+    set backspace=indent,eol,start whichwrap+=<,>,[,]
+    au BufNewFile,BufRead *.cpp set makeprg=MSBuild.exe efm=%f(%l):\ %m
+    au BufNewFile,BufRead *.c set makeprg=MSBuild.exe efm=%f(%l):\ %m
+    au BufNewFile,BufRead *.cs set makeprg=MSBuild.exe efm=%f(%l):\ %m
+    au BufNewFile,BufRead *.vbs set makeprg=cscript efm=%f(%l%m
+    au BufNewFile,BufRead *.js  set makeprg=cscript efm=%f(%l%m
+    au BufNewFile,BufRead *.wsf  set makeprg=cscript efm=%f(%l%m
+
+    au BufNewFile,BufRead *.js  set cindent
+    au BufNewFile,BufRead *.wsf set autoindent
+
+    " ---- Setting for Visual studio 2005
+    au BufNewFile,BufRead *.csproj set ft=xml
+    au BufNewFile,BufRead *.csproj set fileencoding=utf8
+    au BufNewFile,BufRead *.csproj set encoding=utf8
+    au BufNewFile,BufRead *.csproj set fileencoding=utf8
+    au BufNewFile,BufRead *.sln set encoding=utf8
+    au BufNewFile,BufRead *.msh set filetype=msh
+    au BufNewFile,BufRead *.sif set filetype=dosini
+
+    " Razzle
+    au BufNewFile,BufRead sources set filetype=make
+    au BufNewFile,BufRead dirs set filetype=make
+
+    " Powershell
+    au BufEnter *.ps1 :set ft=ps1
+    au BufEnter *.ps1 :set cindent
+
+    if has("gui_running")
+        set guifont=courier_new:h10
+    endif
+endif
+
