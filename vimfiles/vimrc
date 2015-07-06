@@ -53,10 +53,12 @@ endif
 call plug#begin('~/.vim/bundle')
 Plug 'elixir-lang/vim-elixir'
 Plug 'mattonrails/vim-mix'
-call plug#end()
-
+" Must put syntax setting within, or vim will exit with code 1 when
+" running hg commit. Reason still unknown. Suggestion comes from
+" pathogen Github page.
 syntax on
 filetype plugin indent on
+call plug#end()
 
 " SCons
 au BufEnter SConscript :set ft=python
