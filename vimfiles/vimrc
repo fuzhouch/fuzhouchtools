@@ -54,6 +54,7 @@ call plug#begin('~/.vim/bundle')
 Plug 'elixir-lang/vim-elixir'
 Plug 'mattonrails/vim-mix'
 Plug 'derekwyatt/vim-scala'
+Plug 'PProvost/vim-ps1'
 " Must put syntax setting within, or vim will exit with code 1 when
 " running hg commit. Reason still unknown. Suggestion comes from
 " pathogen Github page.
