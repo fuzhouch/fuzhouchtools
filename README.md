@@ -16,3 +16,7 @@ This is Fuzhou Chen's personal storage for tools and configurations.
     git clone http://github.com/fuzhouch/fuzhouchtools
     cd fuzhouchtools
     setup.cmd
+
+# Credits
+
+* Scala definition for Ctags is from: https://leonard.io/blog/2013/04/editing-scala-with-vim/
