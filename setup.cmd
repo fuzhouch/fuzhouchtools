@@ -5,8 +5,10 @@ git submodule update
 if exist "%UserProfile%\vimfiles" ( rmdir "%UserProfile%\vimfiles" )
 if exist "%UserProfile%\.vim" ( rmdir "%UserProfile%\.vim" )
 if exist "%UserProfile%\.vimrc" ( del /f "%UserProfile%\.vimrc" )
+if exist "%UserProfile%\ctags.cnf" ( del /f "%UserProfile%\ctags.cnf" )
 mklink /J "%UserProfile%\vimfiles" "%CheckoutDir%vimfiles"
 mklink /J "%UserProfile%\.vim" "%CheckoutDir%vimfiles"
 mklink /H "%UserProfile%\.vimrc" "%CheckoutDir%vimfiles\vimrc"
 mklink /H "%UserProfile%\vimfiles\autoload\plug.vim" "%UserProfile%\vimfiles\bundle\vim-plug\plug.vim"
+mklink /H "%UserProfile%\ctags.cnf" "%CheckoutDir%ctags.cnf"
 gvim -c ":PlugInstall|qa!"
