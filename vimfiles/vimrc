@@ -69,7 +69,12 @@ au BufEnter SConscript :set ft=python
 au BufEnter *.mm :set ft=objc
 " Elixir
 au BufEnter *.exs :set ft=elixir
-
+" Enable spell checking for text input
+au BufEnter *.txt :setlocal spell spelllang=en_us
+au BufEnter *.md :setlocal spell spelllang=en_us
+au BufEnter *.rst :setlocal spell spelllang=en_us
+au BufEnter *.md.txt :setlocal spell spelllang=en_us
+au BufEnter *.rst.txt :setlocal spell spelllang=en_us
 
 if has("win32")
     set selectmode="mouse,key"
