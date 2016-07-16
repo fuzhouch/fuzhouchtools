@@ -76,6 +76,9 @@ au BufEnter *.rst :setlocal spell spelllang=en_us
 au BufEnter *.md.txt :setlocal spell spelllang=en_us
 au BufEnter *.rst.txt :setlocal spell spelllang=en_us
 
+" All xml files set tab/indention to 2
+au BufEnter *.xml :set shiftwidth=2
+
 if has("win32")
     set selectmode="mouse,key"
     set keymodel="startsel,stopsel"
