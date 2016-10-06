@@ -78,6 +78,8 @@ au BufEnter *.rst.txt :setlocal spell spelllang=en_us
 
 " All xml files set tab/indention to 2
 au BufEnter *.xml :set shiftwidth=2
+" Golang - Make sure we meet go fmt requirements.
+au BufNewFile,BufRead *.go set noexpandtab shiftwidth=8
 
 if has("win32")
     set selectmode="mouse,key"
@@ -114,4 +116,3 @@ if has("win32")
         set guifont=courier_new:h10
     endif
 endif
-
