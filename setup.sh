@@ -23,12 +23,13 @@ ln -f -s "$HOME/.vim/bundle/vim-plug/plug.vim" "$HOME/.vim/autoload/plug.vim"
 VIM_INSTALLED=`which vim`
 NVIM_INSTALLED=`which nvim`
 
-if [ ! "$VIM_INSTALLED" = "" ]; then
-    vim -c ":PlugInstall|qa!"
-fi
-
+# NVIM should put first for its async installation is faster.
 if [ ! "$NVIM_INSTALLED" = "" ]; then
     nvim -c ":PlugInstall|qa!"
+fi
+
+if [ ! "$VIM_INSTALLED" = "" ]; then
+    vim -c ":PlugInstall|qa!"
 fi
 
 ln -f -s "$CURRENT_PATH/ctags.cnf" $HOME/.ctags

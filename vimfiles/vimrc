@@ -57,6 +57,7 @@ Plug 'derekwyatt/vim-scala'
 Plug 'PProvost/vim-ps1'
 Plug 'rust-lang/rust.vim'
 Plug 'udalov/kotlin-vim'
+Plug 'fatih/vim-go'
 " Must put syntax setting within, or vim will exit with code 1 when
 " running hg commit. Reason still unknown. Suggestion comes from
 " pathogen Github page.
