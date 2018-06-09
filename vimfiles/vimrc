@@ -7,8 +7,13 @@ set fileencoding=""
 if has("win32")
     set bomb
     set fileencodings=ucs-bom,cp936,utf8,ucs-2,utf-16,utf-16le
-    set encoding=cp936
-    set termencoding=cp936
+    if has("nvim")
+        set encoding=utf-8
+        set termencoding=utf-8
+    else
+        set encoding=cp936
+        set termencoding=cp936
+    endif
 else
     " Fallback to Mac
     set fileencodings=ucs-bom,utf8,cp936,ucs-2,utf-16,utf-16le
