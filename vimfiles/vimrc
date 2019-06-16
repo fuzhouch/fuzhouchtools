@@ -83,6 +83,9 @@ au BufEnter *.rst :setlocal spell spelllang=en_us
 au BufEnter *.md.txt :setlocal spell spelllang=en_us
 au BufEnter *.rst.txt :setlocal spell spelllang=en_us
 
+" A specific setting for nvim: Force disable foldmethod by expr
+au BufEnter *.rst :setlocal foldmethod=manual
+
 " All xml files set tab/indention to 2
 au BufEnter *.xml :set shiftwidth=2
 " Golang - Make sure we meet go fmt requirements.
@@ -123,3 +126,11 @@ if has("win32")
         set guifont=courier_new:h10
     endif
 endif
+
+" Settings for internal files. Not available outside Microsoft.
+au BufNewFile,BufRead *.script set ft=cosmos
+au BufNewFile,BufRead *.view set ft=cosmos
+
+" My hand written syntax highlighting for Bond file.
+" Find definition from https://github.com/Microsoft/bond
+au BufNewFile,BufRead *.bond set ft=bond
