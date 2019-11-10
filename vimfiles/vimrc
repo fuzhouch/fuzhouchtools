@@ -49,11 +49,7 @@ set hlsearch
 set textwidth=72
 set colorcolumn=72
 
-if has("gui_running")
-    colorscheme torte
-else
-    colorscheme desert
-endif
+colorscheme desert
 
 call plug#begin('~/.vim/bundle')
 Plug 'elixir-lang/vim-elixir'
@@ -63,12 +59,16 @@ Plug 'PProvost/vim-ps1'
 Plug 'rust-lang/rust.vim'
 Plug 'udalov/kotlin-vim'
 Plug 'fatih/vim-go'
+Plug 'vim-airline/vim-airline'
+
 " Must put syntax setting within, or vim will exit with code 1 when
 " running hg commit. Reason still unknown. Suggestion comes from
 " pathogen Github page.
 syntax on
 filetype plugin indent on
 call plug#end()
+
+" let g:airline#extensions#tabline#enabled=1
 
 " SCons
 au BufEnter SConscript :set ft=python
