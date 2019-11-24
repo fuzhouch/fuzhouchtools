@@ -49,8 +49,6 @@ set hlsearch
 set textwidth=72
 set colorcolumn=72
 
-colorscheme desert
-
 call plug#begin('~/.vim/bundle')
 Plug 'elixir-lang/vim-elixir'
 Plug 'mattonrails/vim-mix'
@@ -59,7 +57,26 @@ Plug 'PProvost/vim-ps1'
 Plug 'rust-lang/rust.vim'
 Plug 'udalov/kotlin-vim'
 Plug 'fatih/vim-go'
+Plug 'JuliaEditorSupport/julia-vim'
+
 Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+" All themes below comes from 
+" https://github.com/rafi/awesome-vim-colorschemes
+" Below is what I tried and looks good. However, none of them works
+" well on all four scenarios: vim (command line), nvim (command line),
+" gvim (GUI), and nvim-qt (GUI).
+"
+" So eventually I fallback to default desert theme, though these themes
+" are still installed.
+"
+" Surprisingly, most display issues come from vim for Windows
+" (command line, non-Cygwin). Nvim works fine on almost all scenarios. 
+Plug 'ayu-theme/ayu-vim'
+Plug 'danilo-augusto/vim-afterglow'
+Plug 'ajmwagar/vim-deus'
+Plug 'joshdick/onedark.vim'
 
 " Must put syntax setting within, or vim will exit with code 1 when
 " running hg commit. Reason still unknown. Suggestion comes from
@@ -68,7 +85,13 @@ syntax on
 filetype plugin indent on
 call plug#end()
 
-" let g:airline#extensions#tabline#enabled=1
+colorscheme desert
+"colorscheme afterglow
+"let ayucolor="dark"
+"colorscheme ayu
+"colorscheme deus
+"colorscheme onedark
+let g:airline_theme="molokai"
 
 " SCons
 au BufEnter SConscript :set ft=python
@@ -90,6 +113,7 @@ au BufEnter *.rst :setlocal foldmethod=manual
 au BufEnter *.xml :set shiftwidth=2
 " Golang - Make sure we meet go fmt requirements.
 au BufNewFile,BufRead *.go set noexpandtab shiftwidth=8
+" au BufNewFile,BufRead *.go hi Search cterm=none ctermbg=226
 
 if has("win32")
     set selectmode="mouse,key"
@@ -123,7 +147,7 @@ if has("win32")
     au BufEnter *.ps1 :set cindent
 
     if has("gui_running")
-        set guifont=courier_new:h10
+        set guifont=consolas:h11
     endif
 endif
 
