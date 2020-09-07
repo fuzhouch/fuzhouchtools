@@ -13,7 +13,7 @@ autoload -Uz compinit
 compinit
 # End of lines added by compinstall
 
-PROMPT='[%n@%F{yellow}%m %F{green}%1~%f]%# '
+PROMPT='[%F{yellow}%n@%F{green}%m %F{blue}%1~%f]%# '
 
 # Ported from bash settings
 alias cp="cp -i"
@@ -32,6 +32,9 @@ export PATH=$PATH:$HOME/projects/apache-ant-1.9.4/bin
 
 # For Rust
 export PATH=$HOME/.cargo/bin:$PATH
+
+# For Python 3.8 (alternative)
+export PATH="/usr/local/opt/python@3.8/bin:$PATH"
 
 # export PYTHONPATH=$HOME/.pysite:$PYTHONPATH
 
@@ -63,3 +66,18 @@ export NODE_PATH="/usr/local/lib/node_modules"
 # https://github.com/ohmyzsh/ohmyzsh/issues/7832
 # https://unix.stackexchange.com/questions/167582/why-zsh-ends-a-line-with-a-highlighted-percent-symbol/167600#167600
 unsetopt PROMPT_SP
+
+
+# Quick preparation for Golang
+alias g='export GOPROXY=https://goproxy.cn,direct'
+if [ "$GOPATH" = "" ]; then
+    export PATH=$PATH:$HOME/go/bin
+else
+    export PATH=$PATH:$GOPATH/bin
+fi
+
+export HOMEBREW_CURLRC=1
+
+# For using Golang in China
+export GOPROXY=https://goproxy.cn,direct
+export GO111MODULE=on
