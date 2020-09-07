@@ -19,9 +19,9 @@ else
     set fileencodings=ucs-bom,utf8,cp936,ucs-2,utf-16,utf-16le
     set encoding=utf8
     set termencoding=utf8
-    if has("gui_running")
-        set guifont=Monaco:h12
-    endif
+    "if has("gui_running")
+    "    set guifont=Monaco:h12
+    "endif
     set visualbell
 endif
 
@@ -49,6 +49,16 @@ set hlsearch
 set textwidth=72
 set colorcolumn=72
 
+" Configure Netrw
+" REF: https://shapeshed.com/vim-netrw/
+let g:netrw_liststyle = 3
+" Remove banner
+let g:netrw_banner = 0
+" When opening file, open it in new verticle split
+let g:netrw_browse_split = 2
+" Window size set to 20%
+let g:netrw_winsize = 20
+
 call plug#begin('~/.vim/bundle')
 Plug 'elixir-lang/vim-elixir'
 Plug 'mattonrails/vim-mix'
@@ -61,6 +71,8 @@ Plug 'JuliaEditorSupport/julia-vim'
 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+
+Plug 'mechatroner/rainbow_csv'
 
 " All themes below comes from 
 " https://github.com/rafi/awesome-vim-colorschemes
@@ -91,7 +103,8 @@ colorscheme desert
 "colorscheme ayu
 "colorscheme deus
 "colorscheme onedark
-let g:airline_theme="molokai"
+"let g:airline_theme="molokai"
+let g:airline_theme="badwolf"
 
 " SCons
 au BufEnter SConscript :set ft=python
