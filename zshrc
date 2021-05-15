@@ -26,7 +26,6 @@ export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # For Rust
 export PATH=$HOME/.cargo/bin:$PATH
-export PATH="$HOME/.cargo/bin:$PATH"
 
 # For Python
 export PYTHONPATH=$HOME/.pysite:$PYTHONPATH
