@@ -1,10 +1,10 @@
 # init.nu
 let home = $nu.env.HOME
 
-let myPath = $(echo [ $home "bin" ] | str collect "/")
+let myPath = (echo [ $home "bin" ] | str collect "/")
 let localPath = "/usr/local/bin"
-let rustPath = $(echo [ $home ".cargo" "bin" ] | str collect "/")
-let goPath = $(echo [ $home "go" "bin" ] | str collect "/")
+let rustPath = (echo [ $home ".cargo" "bin" ] | str collect "/")
+let goPath = (echo [ $home "go" "bin" ] | str collect "/")
 # TODO for Python in Linux
 # TODO for NodeJS in Linux
 
@@ -33,8 +33,8 @@ let goPath = $(echo [ $home "go" "bin" ] | str collect "/")
 # news is it does not really break real use. But it's still very
 # difficult to diagnose. Is it possible we suggest adding an option in
 # uniq() operation, like -w, to warn such type mismatch?
-let existingPaths = $(echo $nu.path | each { str collect })
-let dedupedPaths = $(echo [ $myPath $rustPath $goPath $localPath $existingPaths ] | flatten | uniq)
+let existingPaths = (echo $nu.path | each { str collect })
+let dedupedPaths = (echo [ $myPath $rustPath $goPath $localPath $existingPaths ] | flatten | uniq)
 config set path $dedupedPaths
 
 
