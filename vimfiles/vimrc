@@ -15,14 +15,22 @@ if has("win32")
         set termencoding=cp936
     endif
 else
-    " Fallback to Mac
+    " Fallback to Mac or Linux
     set fileencodings=ucs-bom,utf8,cp936,ucs-2,utf-16,utf-16le
     set encoding=utf8
     set termencoding=utf8
-    "if has("gui_running")
-    "    set guifont=Monaco:h12
-    "endif
     set visualbell
+    if has("gui_running")
+        " Unknown vim, neovim does not use guifont, thus it does not
+        " recognize options like guifont. It impacts editors like vimr.
+	if has("unix") && !has('nvim')
+            if system('uname') =~ 'Darwin'
+                set guifont=Monaco:h13
+	    else
+                set guifont=Cascadia\ Code\ 13
+            endif
+	endif
+    endif
 endif
 
 " Disable ruler in Cygwin environment.
@@ -85,10 +93,10 @@ Plug 'mechatroner/rainbow_csv'
 "
 " Surprisingly, most display issues come from vim for Windows
 " (command line, non-Cygwin). Nvim works fine on almost all scenarios. 
-Plug 'ayu-theme/ayu-vim'
-Plug 'danilo-augusto/vim-afterglow'
-Plug 'ajmwagar/vim-deus'
-Plug 'joshdick/onedark.vim'
+" Plug 'ayu-theme/ayu-vim'
+" Plug 'danilo-augusto/vim-afterglow'
+" Plug 'ajmwagar/vim-deus'
+" Plug 'joshdick/onedark.vim'
 
 " Must put syntax setting within, or vim will exit with code 1 when
 " running hg commit. Reason still unknown. Suggestion comes from
@@ -98,12 +106,6 @@ filetype plugin indent on
 call plug#end()
 
 colorscheme desert
-"colorscheme afterglow
-"let ayucolor="dark"
-"colorscheme ayu
-"colorscheme deus
-"colorscheme onedark
-"let g:airline_theme="molokai"
 let g:airline_theme="badwolf"
 
 " SCons
@@ -164,6 +166,8 @@ if has("win32")
     endif
 endif
 
+" Below are my old Microsoft memory. Hope I can reuse them some day.
+"
 " Settings for internal files. Not available outside Microsoft.
 au BufNewFile,BufRead *.script set ft=cosmos
 au BufNewFile,BufRead *.view set ft=cosmos
