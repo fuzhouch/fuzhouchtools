@@ -33,3 +33,15 @@ set --export EDITOR vim
 function startminikube
     minikube start --registry-mirror=https://registry.docker-cn.com
 end
+
+function rm
+    command rm -i $argv
+end
+
+function cp
+    command cp -i $argv
+end
+
+function mv
+    command mv -i $argv
+end
