@@ -2,6 +2,7 @@
 set nocompatible
 set guioptions-=T
 
+" Configure file encodings.
 set fileencodings=""
 set fileencoding=""
 if has("win32")
@@ -20,26 +21,32 @@ else
     set encoding=utf8
     set termencoding=utf8
     set visualbell
-    if has("gui_running")
-        " Unknown vim, neovim does not use guifont, thus it does not
-        " recognize options like guifont. It impacts editors like vimr.
-	if has("unix") && !has('nvim')
-            if system('uname') =~ 'Darwin'
-                set guifont=Monaco:h13
-	    else
-                set guifont=Cascadia\ Code\ 13
-            endif
-	endif
+endif
+
+" Configure GUI
+if has("gui_running")
+    " Unlike vim, neovim does not use guifont, thus it does not
+    " recognize options like guifont. It impacts editors like vimr.
+    if has("unix") && !has('nvim')
+        if system('uname') =~ 'Darwin'
+            set guifont=Monaco:h13
+        else
+            set guifont=Cascadia\ Code\ 13
+        endif
     endif
 endif
 
-" Disable ruler in Cygwin environment.
-if has("win32unix")
-    set noruler
+
+" Always enable true color.
+" No worry all my machines (Mac/Linux) support this.
+if has("termguicolors")
+    set termguicolors
 endif
 
 " Set information to use English so we can read on terminal.
 language messages C
+
+" Editor look & feel
 set showmatch
 set ruler
 set mouse=a
@@ -57,6 +64,11 @@ set hlsearch
 set textwidth=72
 set colorcolumn=72
 
+" Disable ruler in Cygwin environment. TODO Why did we do it?
+if has("win32unix")
+    set noruler
+endif
+
 " Configure Netrw
 " REF: https://shapeshed.com/vim-netrw/
 let g:netrw_liststyle = 3
@@ -67,6 +79,7 @@ let g:netrw_banner = 0
 " Window size set to 20%
 let g:netrw_winsize = 20
 
+" All necessary plug-ins to support better editor experiences.
 call plug#begin('~/.vim/bundle')
 Plug 'elixir-lang/vim-elixir'
 Plug 'mattonrails/vim-mix'
@@ -105,9 +118,11 @@ syntax on
 filetype plugin indent on
 call plug#end()
 
+" Color schemes
 colorscheme desert
 let g:airline_theme="badwolf"
 
+" File open settings
 " SCons
 au BufEnter SConscript :set ft=python
 " Objective-C++
