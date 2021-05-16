@@ -67,7 +67,6 @@ if which jenv > /dev/null; then
     # http://davidcai.github.io/blog/posts/install-multiple-jdk-on-mac/
     eval "$(jenv init -)"
 else
-    echo Startup: JEnv is not detected. Fallback to default JAVA_HOME
     if [ `uname -s` = 'Linux' ]; then
         export JAVA_HOME=/usr/lib/jvm/java-15-openjdk
     elif [ `uname -s` = 'Darwin' ]; then
