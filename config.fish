@@ -10,7 +10,7 @@ if status --is-login
     # For Rust
     set --export PATH $HOME/.cargo/bin $PATH
     # For golang
-    if "$GOPATH" = ""
+    if set -q GOPATH
         set --export PATH $HOME/go/bin $PATH
     else
         set --export PATH $GOPATH/bin $PATH
@@ -25,6 +25,8 @@ set --export GOPROXY https://goproxy.cn,direct
 # For Mac: Homebrew needs --no-apln enabled to make sure it works in
 # China network.
 set --export HOMEBREW_CURLRC 1
+
+set --export EDITOR vim
 
 # For K8S use - Use Aliyun's image instead of global one to avoid being
 # blocked in China.
