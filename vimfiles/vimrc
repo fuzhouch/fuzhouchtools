@@ -31,7 +31,7 @@ if has("gui_running")
         if system('uname') =~ 'Darwin'
             set guifont=Monaco:h13
         else
-            set guifont=Cascadia\ Code\ 13
+            set guifont=Cascadia\ Code\ 14
         endif
     endif
 endif
@@ -111,7 +111,7 @@ Plug 'mechatroner/rainbow_csv'
 " Plug 'ayu-theme/ayu-vim'
 " Plug 'danilo-augusto/vim-afterglow'
 " Plug 'ajmwagar/vim-deus'
-" Plug 'joshdick/onedark.vim'
+Plug 'joshdick/onedark.vim'
 
 " Must put syntax setting within, or vim will exit with code 1 when
 " running hg commit. Reason still unknown. Suggestion comes from
@@ -120,9 +120,16 @@ syntax on
 filetype plugin indent on
 call plug#end()
 
+if !exists('g:GtkGuiLoaded')
+    " Set transparent background for console, but don't do it for
+    " Neovim-GTK, as it results in a completely black background.
+    au VimEnter * hi Normal guibg=NONE ctermbg=NONE
+endif
 " Color schemes
-colorscheme desert
-let g:airline_theme="badwolf"
+" colorscheme desert
+" let g:airline_theme="badwolf"
+colorscheme onedark
+let g:airline_theme="onedark"
 
 " File open settings
 " SCons

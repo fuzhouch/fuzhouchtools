@@ -17,6 +17,7 @@ ln -f -s "$CURRENT_PATH/vimfiles" $HOME/.local/share/nvim/site
 
 ln -f -s "$CURRENT_PATH/vimfiles/vimrc" $HOME/.vimrc
 ln -f -s "$CURRENT_PATH/vimfiles/vimrc" "$HOME/.config/nvim/init.vim"
+ln -f -s "$CURRENT_PATH/vimfiles/ginit.vim" "$HOME/.config/nvim/ginit.vim"
 
 ln -f -s "$HOME/.vim/bundle/vim-plug/plug.vim" "$HOME/.vim/autoload/plug.vim"
 
@@ -36,3 +37,6 @@ if [ ! "$VIM_INSTALLED" = "" ]; then
 fi
 
 ln -f -s "$CURRENT_PATH/ctags.cnf" $HOME/.ctags
+ln -f -s "$CURRENT_PATH/config.fish" "$HOME/.config/fish/config.fish"
+ln -f -s "$CURRENT_PATH/alacritty.yml" "$HOME/.config/alacritty/alacritty.yml"
+ln -f -s "$CURRENT_PATH/fonts.conf" "$HOME/.config/fontconfig/fonts.conf"
