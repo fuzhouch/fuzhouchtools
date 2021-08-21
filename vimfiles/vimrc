@@ -127,25 +127,26 @@ if !exists('g:GtkGuiLoaded') && !has("gui_running")
     " Neovim-GTK, as it results in a completely black background.
     au VimEnter * hi Normal guibg=NONE ctermbg=NONE
 endif
+
 " Color schemes
-" After trying hard for a long time I finally decided to drop onedark
-" due to it's ddrak color in comments. I used my good old friend, the
-" built-in desert, with a small modification of dropping the all-red
-" SpellBad settings.
-"
+" I usually use only two themes, built-in desert and onedark. Onedark
+" is usually used as default but sometimes I need a brighter color.
+" Desert looks better in dark theme but needs a small modification to
+" get a reasonable SpellBad look and feel. See below for switching.
+" 
 " Color cheatsheet: https://jonasjacek.github.io/colors/
-colorscheme desert
+" colorscheme desert
 " Default plug-in airline theme seems good enough, while Badwolf tune
 " it a bit better to display under Gvim.
-let g:airline_theme="badwolf"
+" let g:airline_theme="badwolf"
+" highlight clear SpellBad
+" highlight SpellBad cterm=underline
+" highlight SpellBad gui=underline
+" highlight SpellBad ctermfg=Cyan
+" highlight SpellBad guifg=salmon
 
-highlight clear SpellBad
-highlight SpellBad cterm=underline
-highlight SpellBad gui=underline
-highlight SpellBad ctermfg=Cyan
-highlight SpellBad guifg=salmon
-" colorscheme onedark
-" let g:airline_theme="onedark"
+colorscheme onedark
+let g:airline_theme="onedark"
 
 " File open settings
 " SCons
