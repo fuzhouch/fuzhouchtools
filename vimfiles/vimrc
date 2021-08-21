@@ -83,14 +83,16 @@ let g:netrw_winsize = 20
 
 " All necessary plug-ins to support better editor experiences.
 call plug#begin('~/.vim/bundle')
-Plug 'elixir-lang/vim-elixir'
-Plug 'mattonrails/vim-mix'
-Plug 'derekwyatt/vim-scala'
+" Let's disable less used plug-ins to get faster startup speed.
+" Plug 'elixir-lang/vim-elixir'
+" Plug 'mattonrails/vim-mix'
+" Plug 'derekwyatt/vim-scala'
+" Plug 'udalov/kotlin-vim'
+" Plug 'JuliaEditorSupport/julia-vim'
 Plug 'PProvost/vim-ps1'
 Plug 'rust-lang/rust.vim'
-Plug 'udalov/kotlin-vim'
 Plug 'fatih/vim-go'
-Plug 'JuliaEditorSupport/julia-vim'
+
 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -126,10 +128,24 @@ if !exists('g:GtkGuiLoaded')
     au VimEnter * hi Normal guibg=NONE ctermbg=NONE
 endif
 " Color schemes
-" colorscheme desert
-" let g:airline_theme="badwolf"
-colorscheme onedark
-let g:airline_theme="onedark"
+" After trying hard for a long time I finally decided to drop onedark
+" due to it's ddrak color in comments. I used my good old friend, the
+" built-in desert, with a small modification of dropping the all-red
+" SpellBad settings.
+"
+" Color cheatsheet: https://jonasjacek.github.io/colors/
+colorscheme desert
+" Default plug-in airline theme seems good enough, while Badwolf tune
+" it a bit better to display under Gvim.
+let g:airline_theme="badwolf"
+
+highlight clear SpellBad
+highlight SpellBad cterm=underline
+highlight SpellBad gui=underline
+highlight SpellBad ctermfg=Cyan
+highlight SpellBad guifg=salmon
+" colorscheme onedark
+" let g:airline_theme="onedark"
 
 " File open settings
 " SCons
@@ -154,6 +170,7 @@ au BufEnter *.xml :set shiftwidth=2
 au BufNewFile,BufRead *.go set noexpandtab shiftwidth=8
 " au BufNewFile,BufRead *.go hi Search cterm=none ctermbg=226
 
+" Below are my old Microsoft memory. Hope I can reuse them some day.
 if has("win32")
     set selectmode="mouse,key"
     set keymodel="startsel,stopsel"
@@ -185,17 +202,15 @@ if has("win32")
     au BufEnter *.ps1 :set ft=ps1
     au BufEnter *.ps1 :set cindent
 
+    " Settings for internal files. Not available outside Microsoft.
+    au BufNewFile,BufRead *.script set ft=cosmos
+    au BufNewFile,BufRead *.view set ft=cosmos
+
+    " My hand written syntax highlighting for Bond file.
+    " Find definition from https://github.com/Microsoft/bond
+    au BufNewFile,BufRead *.bond set ft=bond
+
     if has("gui_running")
         set guifont=consolas:h11
     endif
 endif
-
-" Below are my old Microsoft memory. Hope I can reuse them some day.
-"
-" Settings for internal files. Not available outside Microsoft.
-au BufNewFile,BufRead *.script set ft=cosmos
-au BufNewFile,BufRead *.view set ft=cosmos
-
-" My hand written syntax highlighting for Bond file.
-" Find definition from https://github.com/Microsoft/bond
-au BufNewFile,BufRead *.bond set ft=bond
