@@ -31,7 +31,7 @@ if has("gui_running")
         if system('uname') =~ 'Darwin'
             set guifont=Monaco:h13
         else
-            set guifont=Cascadia\ Code\ 14
+            set guifont=Cascadia\ Code\ 12
         endif
     endif
 endif
@@ -122,7 +122,7 @@ syntax on
 filetype plugin indent on
 call plug#end()
 
-if !exists('g:GtkGuiLoaded')
+if !exists('g:GtkGuiLoaded') && !has("gui_running")
     " Set transparent background for console, but don't do it for
     " Neovim-GTK, as it results in a completely black background.
     au VimEnter * hi Normal guibg=NONE ctermbg=NONE

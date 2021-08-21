@@ -1,6 +1,6 @@
 # Configuration for Alacritty, the GPU enhanced terminal emulator.
 
-background_opacity: 0.8
+background_opacity: 0.9
 font:
   normal:
     # family: JetBrains Mono
@@ -10,11 +10,11 @@ font:
     # family: Cascadia Code
     family: monospace
     style: bold
-  size: 14
+  size: 15
 window:
   dimensions:
-    columns: 90
-    lines: 30
+    columns: 100
+    lines: 35
   title: Alacritty
 
 shell:

@@ -28,9 +28,9 @@ set --export HOMEBREW_CURLRC 1
 
 set --export EDITOR vim
 
-set --export GTK_IM_MODULE "ibus"
-set --export XMODIFIERS    "@im=ibus"
-set --export QT_MODULE     "ibus"
+# set --export GTK_IM_MODULE "ibus"
+# set --export XMODIFIERS    "@im=ibus"
+# set --export QT_MODULE     "ibus"
 set --export MOZ_GTK_TITLEBAR_DECORATION "client"
 set --export MOZ_ENABLE_WAYLAND "1"
 
