@@ -113,7 +113,8 @@ Plug 'mechatroner/rainbow_csv'
 " Plug 'ayu-theme/ayu-vim'
 " Plug 'danilo-augusto/vim-afterglow'
 " Plug 'ajmwagar/vim-deus'
-Plug 'joshdick/onedark.vim'
+" Plug 'joshdick/onedark.vim'
+Plug 'rakr/vim-one'
 
 " Must put syntax setting within, or vim will exit with code 1 when
 " running hg commit. Reason still unknown. Suggestion comes from
@@ -145,7 +146,9 @@ endif
 " highlight SpellBad ctermfg=Cyan
 " highlight SpellBad guifg=salmon
 
-colorscheme onedark
+" colorscheme onedark
+colorscheme one
+set background=dark
 let g:airline_theme="onedark"
 
 " File open settings

@@ -41,6 +41,7 @@ alias rm "rm -i"
 alias cp "cp -i"
 alias rm "rm -i"
 alias nv "nvim-gtk"
+alias spx "export https_proxy=http://127.0.0.1:8080/ && export http_proxy=http://127.0.0.1:8080/"
 
 # Set color scheme to Tomorrow Night
 set -U fish_color_normal normal
