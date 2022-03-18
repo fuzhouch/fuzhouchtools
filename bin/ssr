@@ -1,0 +1,28 @@
+#!/bin/sh
+# ss-local -c ~/bin/fq/london.json &
+# SS_PID=$!
+# echo Starting Shadowsocks: $SS_PID
+
+# By 2021-11-13, Shadowsocks with chacha20-ietf-poly1305 algorithm has
+# been detected and blocked. Use v2ray instead.
+
+
+v2ray -config ~/bin/fq/config.json &
+SS_PID=$!
+echo Starting e2ray: PID: $SS_PID
+
+# polipo -c ~/bin/fq/polipo_config &
+# PO_PID=$!
+# echo Starting Polipo: $PO_PID
+
+# wait $PO_PID
+wait $SS_PID
+
+function on_exit()
+{
+    echo Exit program: Kill Shadowsocks \(PID $SS_PID\) # and Polipo\(PID $PO_PID\).
+    # kill $PO_PID
+    kill $SS_PID
+    exit 0
+}
+trap on_exit SIGINT

@@ -1,0 +1,17 @@
+#!/bin/sh
+
+if [ "$1" = "on" ]; then
+    gsettings set org.gnome.system.proxy mode 'manual'
+    gsettings set org.gnome.system.proxy.http host '127.0.0.1'
+    gsettings set org.gnome.system.proxy.http port 8080
+    gsettings set org.gnome.system.proxy.https host '127.0.0.1'
+    gsettings set org.gnome.system.proxy.https port 8080
+    echo Enable proxy
+else
+    gsettings set org.gnome.system.proxy mode 'none'
+    gsettings set org.gnome.system.proxy.http host '127.0.0.1'
+    gsettings set org.gnome.system.proxy.http port 8080
+    gsettings set org.gnome.system.proxy.https host '127.0.0.1'
+    gsettings set org.gnome.system.proxy.https port 8080
+    echo Disable proxy
+fi
