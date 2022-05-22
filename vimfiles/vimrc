@@ -31,7 +31,7 @@ if has("gui_running")
         if system('uname') =~ 'Darwin'
             set guifont=Monaco:h13
         else
-            set guifont=Cascadia\ Code\ 12
+            set guifont=Cascadia\ Code\ 11
         endif
     endif
 endif
@@ -98,6 +98,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 Plug 'mechatroner/rainbow_csv'
+Plug 'aklt/plantuml-syntax'
 
 " All themes below comes from 
 " https://github.com/rafi/awesome-vim-colorschemes
@@ -150,6 +151,11 @@ endif
 colorscheme one
 set background=dark
 let g:airline_theme="onedark"
+" let g:airline_powerline_fonts=1
+" let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#tabline#left_sep = ' '
+" let g:airline#extensions#tabline#left_alt_sep = '|'
+" let g:airline#extensions#tabline#buffer_nr_show = 1
 
 " File open settings
 " SCons
