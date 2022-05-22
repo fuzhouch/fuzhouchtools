@@ -1,0 +1,11 @@
+#!/bin/sh
+minikube start \
+    --container-runtime=containerd \
+    --network-plugin=cni \
+    --cni=bridge \
+    --extra-config=kubelet.container-runtime=remote \
+    --extra-config=kubelet.container-runtime-endpoint=/var/run/crio.sock \
+    --extra-config=kubelet.image-service-endpoint=/var/run/crio.sock \
+    --driver=podman \
+    --registry-mirror=https://registry.docker-cn.com \
+    --image-repository=registry.cn-hangzhou.aliyuncs.com/google_containers

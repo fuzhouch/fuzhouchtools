@@ -1,0 +1,5 @@
+#!/bin/sh
+minikube start \
+    --driver=kvm2 \
+    --registry-mirror=https://registry.docker-cn.com \
+    --image-repository=registry.cn-hangzhou.aliyuncs.com/google_containers
