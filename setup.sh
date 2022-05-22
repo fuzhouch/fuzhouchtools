@@ -4,11 +4,12 @@ CURRENT_PATH=`pwd`
 git submodule init
 git submodule update
 
-rm -f $HOME/.vim
+rm -rf $HOME/.vim
 rm -f $HOME/.vimrc
 rm -f $HOME/.local/share/nvim/site
 
-mkdir -p $HOME/.vim/autoload
+mkdir -p $HOME/.config/alacritty
+mkdir -p $HOME/.config/fontconfig
 mkdir -p $HOME/.config/nvim
 mkdir -p $HOME/.config/nvim/syntax
 mkdir -p $HOME/.local/share/nvim
