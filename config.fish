@@ -28,15 +28,16 @@ set --export HOMEBREW_CURLRC 1
 
 set --export EDITOR vim
 
-# set --export GTK_IM_MODULE "ibus"
-# set --export XMODIFIERS    "@im=ibus"
-# set --export QT_MODULE     "ibus"
+set --export JAVA_HOME /usr/lib/jvm/default
+
+set --export GTK_IM_MODULE "ibus"
+set --export XMODIFIERS    "@im=ibus"
+set --export QT_MODULE     "ibus"
 set --export MOZ_GTK_TITLEBAR_DECORATION "client"
 set --export MOZ_ENABLE_WAYLAND "1"
 
 # For K8S use - Use Aliyun's image instead of global one to avoid being
 # blocked in China.
-alias smk "minikube start --registry-mirror=https://registry.docker-cn.com"
 alias rm "rm -i"
 alias cp "cp -i"
 alias rm "rm -i"
