@@ -1,8 +1,7 @@
-" configuration for fuzhouch
 set nocompatible
 set guioptions-=T
 
-" Configure file encodings.
+" File encodings for working on both Linux (UTF-8) and Windows (CP936).
 set fileencodings=""
 set fileencoding=""
 if has("win32")
@@ -16,7 +15,6 @@ if has("win32")
         set termencoding=cp936
     endif
 else
-    " Fallback to Mac or Linux
     set fileencodings=ucs-bom,utf8,cp936,ucs-2,utf-16,utf-16le
     set encoding=utf8
     set termencoding=utf8
@@ -31,21 +29,20 @@ if has("gui_running")
         if system('uname') =~ 'Darwin'
             set guifont=Monaco:h13
         else
-            set guifont=Cascadia\ Code\ 11
+            set guifont=Monospace\ 12
         endif
     endif
 endif
 
 
-" Always enable true color.
-" No worry all my machines (Mac/Linux) support this.
+" Always enable true color. No worry. All my machines support it.
 if has("termguicolors")
     let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
     let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
     set termguicolors
 endif
 
-" Set information to use English so we can read on terminal.
+" All messages use English so no bogus characters in terminal.
 language messages C
 
 " Editor look & feel
@@ -56,7 +53,7 @@ set modeline
 set modelines=5
 set number
 set backspace=indent,eol,start whichwrap+=<,>,[,]
-" Remember the last line number
+" Remember line from last edit and jump to it.
 autocmd BufReadPost * if (line("'\"") > 0 && line("'\"") <= line("$")) | exe "normal g'\"" | endif
 
 set expandtab
@@ -71,34 +68,36 @@ if has("win32unix")
     set noruler
 endif
 
-" Configure Netrw
+" File navigation by Netrw
 " REF: https://shapeshed.com/vim-netrw/
 let g:netrw_liststyle = 3
-" Remove banner
 let g:netrw_banner = 0
-" When opening file, open it in new verticle split
-" let g:netrw_browse_split = 2
-" Window size set to 20%
 let g:netrw_winsize = 20
 
+" ===================================================================
+" Plugins, including syntax highlighting and enhancement.
+" ===================================================================
 " All necessary plug-ins to support better editor experiences.
 call plug#begin('~/.vim/bundle')
-" Let's disable less used plug-ins to get faster startup speed.
+
+" Let's disable less used plug-ins for faster startup.
+" =================================================================
 " Plug 'elixir-lang/vim-elixir'
 " Plug 'mattonrails/vim-mix'
 " Plug 'derekwyatt/vim-scala'
 " Plug 'udalov/kotlin-vim'
 " Plug 'JuliaEditorSupport/julia-vim'
-Plug 'PProvost/vim-ps1'
+" Plug 'PProvost/vim-ps1'
+" =================================================================
 Plug 'rust-lang/rust.vim'
 Plug 'fatih/vim-go'
-
-
+Plug 'aklt/plantuml-syntax'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-
 Plug 'mechatroner/rainbow_csv'
-Plug 'aklt/plantuml-syntax'
+" An bug: it always complains g:airline_statusline_funcrefs undefined.
+let g:vaxe_enable_airline_defaults=0
+Plug 'jdonaldson/vaxe'
 
 " All themes below comes from 
 " https://github.com/rafi/awesome-vim-colorschemes
@@ -114,11 +113,15 @@ Plug 'aklt/plantuml-syntax'
 " Plug 'ayu-theme/ayu-vim'
 " Plug 'danilo-augusto/vim-afterglow'
 " Plug 'ajmwagar/vim-deus'
-" Plug 'joshdick/onedark.vim'
-Plug 'rakr/vim-one'
+" Plug 'liuchengxu/space-vim-dark'
+" Plug 'rakr/vim-one'  -- vim-one: Tweak does not work. Don't use it.
+Plug 'joshdick/onedark.vim'
 
+" ===================================================================
+" Syntax highlighting
+" ===================================================================
 " Must put syntax setting within, or vim will exit with code 1 when
-" running hg commit. Reason still unknown. Suggestion comes from
+" running hg commit. Reasons still unknown. Suggestion comes from
 " pathogen Github page.
 syntax on
 filetype plugin indent on
@@ -132,30 +135,28 @@ endif
 
 " Color schemes
 " I usually use only two themes, built-in desert and onedark. Onedark
-" is usually used as default but sometimes I need a brighter color.
+" is usually used by default but sometimes I need a brighter color.
 " Desert looks better in dark theme but needs a small modification to
 " get a reasonable SpellBad look and feel. See below for switching.
 " 
-" Color cheatsheet: https://jonasjacek.github.io/colors/
-" colorscheme desert
-" Default plug-in airline theme seems good enough, while Badwolf tune
-" it a bit better to display under Gvim.
-" let g:airline_theme="badwolf"
-" highlight clear SpellBad
-" highlight SpellBad cterm=underline
-" highlight SpellBad gui=underline
-" highlight SpellBad ctermfg=Cyan
-" highlight SpellBad guifg=salmon
-
-" colorscheme onedark
-colorscheme one
-set background=dark
+" I personally still love onedark theme, yet I really need torte for a
+" comfortable eye-feelings under low screen blightness, especially for
+" reading comments. Onedark has a nice color but constract is too low.
+"
+" So I tweak color of comments for better readability. The color settings
+" here is copied from desert color scheme.
+colorscheme onedark
+highlight Normal guibg=#171421
+highlight Comment term=bold ctermfg=11 guifg=#6DCEEB
 let g:airline_theme="onedark"
-" let g:airline_powerline_fonts=1
-" let g:airline#extensions#tabline#enabled = 1
-" let g:airline#extensions#tabline#left_sep = ' '
-" let g:airline#extensions#tabline#left_alt_sep = '|'
-" let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline_powerline_fonts=1
+
+" colorscheme desert
+" let g:airline_theme="badwolf"
+
+" ====================================================================
+" Default file opening settings. Mostly for syntax highlighting.
+" ====================================================================
 
 " File open settings
 " SCons
@@ -176,9 +177,11 @@ au BufEnter *.rst :setlocal foldmethod=manual
 
 " All xml files set tab/indention to 2
 au BufEnter *.xml :set shiftwidth=2
+au BufEnter *.yaml :set shiftwidth=2
+au BufEnter *.yml :set shiftwidth=2
+au BufEnter *.json :set shiftwidth=2
 " Golang - Make sure we meet go fmt requirements.
 au BufNewFile,BufRead *.go set noexpandtab shiftwidth=8
-" au BufNewFile,BufRead *.go hi Search cterm=none ctermbg=226
 
 " Below are my old Microsoft memory. Hope I can reuse them some day.
 if has("win32")
