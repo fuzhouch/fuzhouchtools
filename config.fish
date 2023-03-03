@@ -20,28 +20,39 @@ if status --is-login
     set --export PATH $npm_config_prefix/bin $PATH
 end
 
+# For Flink
+set --export PATH $PATH "$HOME/projects/learning/flink/flink-1.16.0/bin"
+
 # For use in China mainlang
 set --export GOPROXY https://goproxy.cn,direct
 # For Mac: Homebrew needs --no-apln enabled to make sure it works in
 # China network.
 set --export HOMEBREW_CURLRC 1
 
+# User mode docker.
+# See https://wiki.archlinux.org/title/docker for details.
+# set --export DOCKER_HOST unix://$XDG_RUNTIME_DIR/docker.sock
+set --export DOCKET_HOST unix:///$XDG_RUNTIME_DIR/podman/podman.sock
+
+
 set --export EDITOR vim
 
-set --export JAVA_HOME /usr/lib/jvm/default
+# OpenJDK 19
+# set --export JAVA_HOME /usr/lib/jvm/default
+# OpenJDK 11 - for Flink
+set --export JAVA_HOME /usr/lib/jvm/java-11-openjdk
 
+# Input method.
 set --export GTK_IM_MODULE "ibus"
 set --export XMODIFIERS    "@im=ibus"
 set --export QT_MODULE     "ibus"
 set --export MOZ_GTK_TITLEBAR_DECORATION "client"
 set --export MOZ_ENABLE_WAYLAND "1"
 
-# For K8S use - Use Aliyun's image instead of global one to avoid being
-# blocked in China.
+# Useful alias to avoid accidential deletion.
 alias rm "rm -i"
 alias cp "cp -i"
 alias rm "rm -i"
-alias nv "nvim-gtk"
 alias spx "export https_proxy=http://127.0.0.1:8080/ && export http_proxy=http://127.0.0.1:8080/"
 
 # Set color scheme to Tomorrow Night
