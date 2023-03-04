@@ -99,6 +99,9 @@ Plug 'mechatroner/rainbow_csv'
 let g:vaxe_enable_airline_defaults=0
 Plug 'jdonaldson/vaxe'
 
+" Let's change our live a bit: Enable LSP for C++. 
+Plug 'yegappan/lsp'
+
 " All themes below comes from 
 " https://github.com/rafi/awesome-vim-colorschemes
 " Below is what I tried and looks good. However, none of them works
@@ -131,6 +134,26 @@ if !exists('g:GtkGuiLoaded') && !has("gui_running")
     " Set transparent background for console, but don't do it for
     " Neovim-GTK, as it results in a completely black background.
     au VimEnter * hi Normal guibg=NONE ctermbg=NONE
+endif
+
+" Support LSP
+if !has("win32")
+    let lspServers = [
+                \     #{
+                \        filetype: ['c', 'cpp'],
+                \        path: '/usr/bin/clangd',
+                \        args: ['--background-index']
+                \      },
+                \     #{
+                \	 filetype: ['rust'],
+                \	 path: '/home/fuzhouch/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rust-analyzer',
+                \	 args: [],
+                \        syncInit: v:true
+                \      }
+                \   ]
+    autocmd VimEnter * call LspAddServer(lspServers)
+    let lspOpts = {'autoHighlightDiags': v:true}
+    autocmd VimEnter * call LspOptionsSet(lspOpts)
 endif
 
 " Color schemes
