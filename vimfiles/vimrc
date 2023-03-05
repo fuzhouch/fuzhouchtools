@@ -137,24 +137,28 @@ if !exists('g:GtkGuiLoaded') && !has("gui_running")
 endif
 
 " Support LSP
-if !has("win32")
-    let lspServers = [
-                \     #{
-                \        filetype: ['c', 'cpp'],
-                \        path: '/usr/bin/clangd',
-                \        args: ['--background-index']
-                \      },
-                \     #{
-                \	 filetype: ['rust'],
-                \	 path: '/home/fuzhouch/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rust-analyzer',
-                \	 args: [],
-                \        syncInit: v:true
-                \      }
-                \   ]
-    autocmd VimEnter * call LspAddServer(lspServers)
-    let lspOpts = {'autoHighlightDiags': v:true}
-    autocmd VimEnter * call LspOptionsSet(lspOpts)
+let clangdExe = '/usr/bin/clangd'
+let rustAnalyzerExe = '/home/fuzhouch/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rust-analyzer'
+if has("win32")
+    let clangdExe = 'C:/Users/fuzhouch/scoop/shims/clangd.exe'
+    let rustAnalyzerExe = 'C:/Users/fuzhouch/.rustup/toolchains/stable-x86_64-pc-windows-msvc/bin/rust-analyzer.exe'
 endif
+let lspServers = [
+            \     #{
+            \        filetype: ['c', 'cpp'],
+            \        path: clangdExe,
+            \        args: ['--background-index']
+            \      },
+            \     #{
+            \	 filetype: ['rust'],
+            \	 path: rustAnalyzerExe,
+            \	 args: [],
+            \        syncInit: v:true
+            \      }
+            \   ]
+autocmd VimEnter * call LspAddServer(lspServers)
+let lspOpts = {'autoHighlightDiags': v:true}
+autocmd VimEnter * call LspOptionsSet(lspOpts)
 
 " Color schemes
 " I usually use only two themes, built-in desert and onedark. Onedark
@@ -172,7 +176,7 @@ colorscheme onedark
 highlight Normal guibg=#171421
 highlight Comment term=bold ctermfg=11 guifg=#6DCEEB
 let g:airline_theme="onedark"
-let g:airline_powerline_fonts=1
+let g:airline_powerline_fonts=0
 
 " colorscheme desert
 " let g:airline_theme="badwolf"
