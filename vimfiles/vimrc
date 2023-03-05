@@ -176,7 +176,11 @@ colorscheme onedark
 highlight Normal guibg=#171421
 highlight Comment term=bold ctermfg=11 guifg=#6DCEEB
 let g:airline_theme="onedark"
-let g:airline_powerline_fonts=0
+if has("win32")
+    let g:airline_powerline_fonts=0
+else
+    let g:airline_powerline_fonts=1
+endif
 
 " colorscheme desert
 " let g:airline_theme="badwolf"
