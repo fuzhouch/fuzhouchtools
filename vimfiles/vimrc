@@ -157,7 +157,7 @@ let lspServers = [
             \      }
             \   ]
 autocmd VimEnter * call LspAddServer(lspServers)
-let lspOpts = {'autoHighlightDiags': v:true}
+let lspOpts = {'autoHighlightDiags': v:false}
 autocmd VimEnter * call LspOptionsSet(lspOpts)
 
 " Color schemes
@@ -175,6 +175,7 @@ autocmd VimEnter * call LspOptionsSet(lspOpts)
 colorscheme onedark
 highlight Normal guibg=#171421
 highlight Comment term=bold ctermfg=11 guifg=#6DCEEB
+highlight Cursor guibg=blue guibg=yellow
 let g:airline_theme="onedark"
 if has("win32")
     let g:airline_powerline_fonts=0
