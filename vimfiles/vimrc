@@ -1,7 +1,15 @@
+" Fuzhou's configuration file for VIM.
+" This configuration should work on both Vim and Nvim (best effort),
+" verified mostly on Linux and Windows. Mac should work but may not test
+" sufficiently. Let me know if I missed something.
+"
+" Note that some folders/paths may reflect settings on my own machine.
+" May have to modify a bit.
+
 set nocompatible
 set guioptions-=T
 
-" File encodings for working on both Linux (UTF-8) and Windows (CP936).
+" File encodings for working on Windows (CP936), Linux/Mac (UTF-8) 
 set fileencodings=""
 set fileencoding=""
 if has("win32")
@@ -42,10 +50,10 @@ if has("termguicolors")
     set termguicolors
 endif
 
-" All messages use English so no bogus characters in terminal.
+" All messages use English so no bogus characters displayed in terminal.
 language messages C
 
-" Editor look & feel
+" Basic editor look & feel
 set showmatch
 set ruler
 set mouse=a
@@ -53,15 +61,68 @@ set modeline
 set modelines=5
 set number
 set backspace=indent,eol,start whichwrap+=<,>,[,]
-" Remember line from last edit and jump to it.
+
+" Remember line from last edit and jump to it. Useful when editing.
 autocmd BufReadPost * if (line("'\"") > 0 && line("'\"") <= line("$")) | exe "normal g'\"" | endif
 
+" Default formatting. Should be suffcicent for most programming language
+" developers. Some settings, for example, Linux C code, may need special
+" settings. Please set it with autocmd, if needed. See end of
+" this configuration for details.
 set expandtab
 set shiftwidth=4
 set incsearch
 set hlsearch
 set textwidth=72
 set colorcolumn=72
+
+au BufNewFile,BufRead *.js  set cindent
+au BufNewFile,BufRead *.wsf set autoindent
+
+" ---- Setting for Visual studio 2005
+au BufNewFile,BufRead *.csproj set ft=xml
+au BufNewFile,BufRead *.csproj set fileencoding=utf8
+au BufNewFile,BufRead *.csproj set encoding=utf8
+au BufNewFile,BufRead *.csproj set fileencoding=utf8
+au BufNewFile,BufRead *.sln set encoding=utf8
+au BufNewFile,BufRead *.msh set filetype=msh
+au BufNewFile,BufRead *.sif set filetype=dosini
+
+" Powershell
+au BufEnter *.ps1 :set ft=ps1
+au BufEnter *.ps1 :set cindent
+
+" File open settings
+au BufEnter SConscript :set ft=python
+au BufEnter *.mm :set ft=objc
+au BufEnter *.exs :set ft=elixir
+
+" NOTE: Reading Chinese text does not work well with it, for it treats
+" all Chinese characters as spelling errors. I haven't found a good way
+" to make two languages living together. Let's just live with it.
+au BufEnter *.txt :setlocal spell spelllang=en_us
+au BufEnter *.md :setlocal spell spelllang=en_us
+au BufEnter *.rst :setlocal spell spelllang=en_us
+au BufEnter *.md.txt :setlocal spell spelllang=en_us
+au BufEnter *.rst.txt :setlocal spell spelllang=en_us
+
+" Force disable foldmethod by expr. Good for Nvim.
+au BufEnter *.rst :setlocal foldmethod=manual
+
+" Data files don't need too many indentions.
+au BufEnter *.xml :set shiftwidth=2
+au BufEnter *.yaml :set shiftwidth=2
+au BufEnter *.yml :set shiftwidth=2
+au BufEnter *.json :set shiftwidth=2
+
+" Golang - Let's make sure we meet gofmt settings.
+au BufNewFile,BufRead *.go set noexpandtab shiftwidth=8
+
+
+
+" My hand written syntax highlighting for Bond file.
+" Find definition from https://github.com/Microsoft/bond
+au BufNewFile,BufRead *.bond set ft=bond
 
 " Disable ruler in Cygwin environment. TODO Why did we do it?
 if has("win32unix")
@@ -80,21 +141,21 @@ let g:netrw_winsize = 20
 " All necessary plug-ins to support better editor experiences.
 call plug#begin('~/.vim/bundle')
 
-" Let's disable less used plug-ins for faster startup.
-" =================================================================
+" Below are some plugins I don't always use. May enable in future
 " Plug 'elixir-lang/vim-elixir'
 " Plug 'mattonrails/vim-mix'
 " Plug 'derekwyatt/vim-scala'
 " Plug 'udalov/kotlin-vim'
 " Plug 'JuliaEditorSupport/julia-vim'
 " Plug 'PProvost/vim-ps1'
-" =================================================================
+
 Plug 'rust-lang/rust.vim'
 Plug 'fatih/vim-go'
 Plug 'aklt/plantuml-syntax'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'mechatroner/rainbow_csv'
+
 " An bug: it always complains g:airline_statusline_funcrefs undefined.
 let g:vaxe_enable_airline_defaults=0
 Plug 'jdonaldson/vaxe'
@@ -102,28 +163,14 @@ Plug 'jdonaldson/vaxe'
 " Let's change our live a bit: Enable LSP for C++. 
 Plug 'yegappan/lsp'
 
-" All themes below comes from 
-" https://github.com/rafi/awesome-vim-colorschemes
-" Below is what I tried and looks good. However, none of them works
-" well on all four scenarios: vim (command line), nvim (command line),
-" gvim (GUI), and nvim-qt (GUI).
-"
-" So eventually I fallback to default desert theme, though these themes
-" are still installed.
-"
-" Surprisingly, most display issues come from vim for Windows
-" (command line, non-Cygwin). Nvim works fine on almost all scenarios. 
-" Plug 'ayu-theme/ayu-vim'
-" Plug 'danilo-augusto/vim-afterglow'
-" Plug 'ajmwagar/vim-deus'
-" Plug 'liuchengxu/space-vim-dark'
-" Plug 'rakr/vim-one'  -- vim-one: Tweak does not work. Don't use it.
+" Themes
+" I use themes from  https://github.com/rafi/awesome-vim-colorschemes
 Plug 'joshdick/onedark.vim'
 
 " ===================================================================
 " Syntax highlighting
 " ===================================================================
-" Must put syntax setting within, or vim will exit with code 1 when
+" Must put syntax setting here, or vim will exit with code 1 when
 " running hg commit. Reasons still unknown. Suggestion comes from
 " pathogen Github page.
 syntax on
@@ -135,30 +182,6 @@ if !exists('g:GtkGuiLoaded') && !has("gui_running")
     " Neovim-GTK, as it results in a completely black background.
     au VimEnter * hi Normal guibg=NONE ctermbg=NONE
 endif
-
-" Support LSP
-let clangdExe = '/usr/bin/clangd'
-let rustAnalyzerExe = '/home/fuzhouch/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rust-analyzer'
-if has("win32")
-    let clangdExe = 'C:/Users/fuzhouch/scoop/shims/clangd.exe'
-    let rustAnalyzerExe = 'C:/Users/fuzhouch/.rustup/toolchains/stable-x86_64-pc-windows-msvc/bin/rust-analyzer.exe'
-endif
-let lspServers = [
-            \     #{
-            \        filetype: ['c', 'cpp'],
-            \        path: clangdExe,
-            \        args: ['--background-index']
-            \      },
-            \     #{
-            \	 filetype: ['rust'],
-            \	 path: rustAnalyzerExe,
-            \	 args: [],
-            \        syncInit: v:true
-            \      }
-            \   ]
-autocmd VimEnter * call LspAddServer(lspServers)
-let lspOpts = {'autoHighlightDiags': v:false}
-autocmd VimEnter * call LspOptionsSet(lspOpts)
 
 " Color schemes
 " I usually use only two themes, built-in desert and onedark. Onedark
@@ -183,37 +206,33 @@ else
     let g:airline_powerline_fonts=1
 endif
 
-" colorscheme desert
-" let g:airline_theme="badwolf"
+" Support LSP. This is a new thing and so far it works only for Vim9.
+" I wish I use a Nvim/Vim compatible version, but I really love
+" LspOutline command from yegappan/lsp plugin.
+let clangdExe = '/usr/bin/clangd'
+let rustAnalyzerExe = '/home/fuzhouch/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rust-analyzer'
+if has("win32")
+    let clangdExe = 'C:/Users/fuzhouch/scoop/shims/clangd.exe'
+    let rustAnalyzerExe = 'C:/Users/fuzhouch/.rustup/toolchains/stable-x86_64-pc-windows-msvc/bin/rust-analyzer.exe'
+endif
+let lspServers = [
+            \     #{
+            \        filetype: ['c', 'cpp'],
+            \        path: clangdExe,
+            \        args: ['--background-index']
+            \      },
+            \     #{
+            \	 filetype: ['rust'],
+            \	 path: rustAnalyzerExe,
+            \	 args: [],
+            \        syncInit: v:true
+            \      }
+            \   ]
+autocmd VimEnter * call LspAddServer(lspServers)
+let lspOpts = {'autoHighlightDiags': v:false}
+autocmd VimEnter * call LspOptionsSet(lspOpts)
 
-" ====================================================================
-" Default file opening settings. Mostly for syntax highlighting.
-" ====================================================================
 
-" File open settings
-" SCons
-au BufEnter SConscript :set ft=python
-" Objective-C++
-au BufEnter *.mm :set ft=objc
-" Elixir
-au BufEnter *.exs :set ft=elixir
-" Enable spell checking for text input
-au BufEnter *.txt :setlocal spell spelllang=en_us
-au BufEnter *.md :setlocal spell spelllang=en_us
-au BufEnter *.rst :setlocal spell spelllang=en_us
-au BufEnter *.md.txt :setlocal spell spelllang=en_us
-au BufEnter *.rst.txt :setlocal spell spelllang=en_us
-
-" A specific setting for nvim: Force disable foldmethod by expr
-au BufEnter *.rst :setlocal foldmethod=manual
-
-" All xml files set tab/indention to 2
-au BufEnter *.xml :set shiftwidth=2
-au BufEnter *.yaml :set shiftwidth=2
-au BufEnter *.yml :set shiftwidth=2
-au BufEnter *.json :set shiftwidth=2
-" Golang - Make sure we meet go fmt requirements.
-au BufNewFile,BufRead *.go set noexpandtab shiftwidth=8
 
 " Below are my old Microsoft memory. Hope I can reuse them some day.
 if has("win32")
@@ -227,33 +246,13 @@ if has("win32")
     au BufNewFile,BufRead *.js  set makeprg=cscript efm=%f(%l%m
     au BufNewFile,BufRead *.wsf  set makeprg=cscript efm=%f(%l%m
 
-    au BufNewFile,BufRead *.js  set cindent
-    au BufNewFile,BufRead *.wsf set autoindent
-
-    " ---- Setting for Visual studio 2005
-    au BufNewFile,BufRead *.csproj set ft=xml
-    au BufNewFile,BufRead *.csproj set fileencoding=utf8
-    au BufNewFile,BufRead *.csproj set encoding=utf8
-    au BufNewFile,BufRead *.csproj set fileencoding=utf8
-    au BufNewFile,BufRead *.sln set encoding=utf8
-    au BufNewFile,BufRead *.msh set filetype=msh
-    au BufNewFile,BufRead *.sif set filetype=dosini
-
     " Razzle
     au BufNewFile,BufRead sources set filetype=make
     au BufNewFile,BufRead dirs set filetype=make
 
-    " Powershell
-    au BufEnter *.ps1 :set ft=ps1
-    au BufEnter *.ps1 :set cindent
-
-    " Settings for internal files. Not available outside Microsoft.
+    " Settings for Bing Cosmos. Not available outside Microsoft.
     au BufNewFile,BufRead *.script set ft=cosmos
     au BufNewFile,BufRead *.view set ft=cosmos
-
-    " My hand written syntax highlighting for Bond file.
-    " Find definition from https://github.com/Microsoft/bond
-    au BufNewFile,BufRead *.bond set ft=bond
 
     if has("gui_running")
         set guifont=consolas:h11
