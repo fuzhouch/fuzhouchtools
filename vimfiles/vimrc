@@ -141,27 +141,41 @@ let g:netrw_winsize = 20
 " All necessary plug-ins to support better editor experiences.
 call plug#begin('~/.vim/bundle')
 
-" Below are some plugins I don't always use. May enable in future
+" Plugins I don't always use. Enable it on demand.
 " Plug 'elixir-lang/vim-elixir'
 " Plug 'mattonrails/vim-mix'
 " Plug 'derekwyatt/vim-scala'
 " Plug 'udalov/kotlin-vim'
 " Plug 'JuliaEditorSupport/julia-vim'
 " Plug 'PProvost/vim-ps1'
+" Plug 'zah/nim.vim'
+" Plug 'aklt/plantuml-syntax'
+
+" An bug: it always complains g:airline_statusline_funcrefs undefined.
+" let g:vaxe_enable_airline_defaults=0
+" Plug 'jdonaldson/vaxe'
+
+" Plug 'yegappan/lsp'
 
 Plug 'rust-lang/rust.vim'
 Plug 'fatih/vim-go'
-Plug 'aklt/plantuml-syntax'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'mechatroner/rainbow_csv'
 
-" An bug: it always complains g:airline_statusline_funcrefs undefined.
-let g:vaxe_enable_airline_defaults=0
-Plug 'jdonaldson/vaxe'
-
 " Let's change our live a bit: Enable LSP for C++. 
-Plug 'yegappan/lsp'
+" Note: I used to use yegappan/lsp but dropped it later for two reasons:
+" 1. It uses Vim9 script. It breaks compatibility with NeoVim.
+" 2. (Seems) It relies on lsp server to get symbols in asynchronized
+"    way, which causes long delay when coding Zig.
+"
+" Prabirshrestha/vim-lsp solves all the problems above.
+"
+" Meanwhile I didnt' enable mattn/vim-lsp-settings because I want to use
+" OS package to management installation of lsp servers.
+Plug 'prabirshrestha/vim-lsp'
+
+" Plug 'mattn/vim-lsp-settings'
 
 " Themes
 " I use themes from  https://github.com/rafi/awesome-vim-colorschemes
@@ -184,12 +198,12 @@ if !exists('g:GtkGuiLoaded') && !has("gui_running")
 endif
 
 " Color schemes
-" I usually use only two themes, built-in desert and onedark. Onedark
+" I use only two themes, built-in desert and onedark. Onedark
 " is usually used by default but sometimes I need a brighter color.
 " Desert looks better in dark theme but needs a small modification to
 " get a reasonable SpellBad look and feel. See below for switching.
 " 
-" I personally still love onedark theme, yet I really need torte for a
+" I personally still love onedark theme, yet I somethings like desert for a
 " comfortable eye-feelings under low screen blightness, especially for
 " reading comments. Onedark has a nice color but constract is too low.
 "
@@ -209,29 +223,62 @@ endif
 " Support LSP. This is a new thing and so far it works only for Vim9.
 " I wish I use a Nvim/Vim compatible version, but I really love
 " LspOutline command from yegappan/lsp plugin.
-let clangdExe = '/usr/bin/clangd'
-let rustAnalyzerExe = '/home/fuzhouch/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rust-analyzer'
-if has("win32")
-    let clangdExe = 'C:/Users/fuzhouch/scoop/shims/clangd.exe'
-    let rustAnalyzerExe = 'C:/Users/fuzhouch/.rustup/toolchains/stable-x86_64-pc-windows-msvc/bin/rust-analyzer.exe'
-endif
-let lspServers = [
-            \     #{
-            \        filetype: ['c', 'cpp'],
-            \        path: clangdExe,
-            \        args: ['--background-index']
-            \      },
-            \     #{
-            \	 filetype: ['rust'],
-            \	 path: rustAnalyzerExe,
-            \	 args: [],
-            \        syncInit: v:true
-            \      }
-            \   ]
-autocmd VimEnter * call LspAddServer(lspServers)
-let lspOpts = {'autoHighlightDiags': v:false}
-autocmd VimEnter * call LspOptionsSet(lspOpts)
 
+if executable('zls')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'zls',
+        \ 'cmd': {server_info->['zls']},
+        \ 'allowlist': ['zig'],
+        \ })
+endif
+
+if executable('clangd')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'clangd',
+        \ 'cmd': {server_info->['clangd']},
+        \ 'allowlist': ['c','cpp'],
+        \ })
+endif
+
+if executable('rust-analyzer')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'rust-analyzer',
+        \ 'cmd': {server_info->['rust-analyzer']},
+        \ 'allowlist': ['rust'],
+        \ })
+endif
+
+function! s:on_lsp_buffer_enabled() abort
+    " setlocal omnifunc=lsp#complete
+    " setlocal signcolumn=yes
+    if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+    nmap <buffer> gd <plug>(lsp-definition)
+    nmap <buffer> gs <plug>(lsp-document-symbol-search)
+    nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
+    nmap <buffer> gr <plug>(lsp-references)
+    nmap <buffer> gi <plug>(lsp-implementation)
+    nmap <buffer> gt <plug>(lsp-type-definition)
+    nmap <buffer> <leader>rn <plug>(lsp-rename)
+    nmap <buffer> [g <plug>(lsp-previous-diagnostic)
+    nmap <buffer> ]g <plug>(lsp-next-diagnostic)
+    nmap <buffer> K <plug>(lsp-hover)
+    nnoremap <buffer> <expr><c-f> lsp#scroll(+4)
+    nnoremap <buffer> <expr><c-d> lsp#scroll(-4)
+
+    let g:lsp_format_sync_timeout = 1000
+    autocmd! BufWritePre *.rs,*.go call execute('LspDocumentFormatSync')
+
+    " refer to doc to add more commands
+endfunction
+
+augroup lsp_install
+    au!
+    " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
+
+" TODO Something wrong in zig file binding when writing buffer.
+let g:zig_fmt_autosave = 0
 
 
 " Below are my old Microsoft memory. Hope I can reuse them some day.

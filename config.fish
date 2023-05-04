@@ -18,6 +18,8 @@ if status --is-login
     # For NPM
     set --export npm_config_prefix $HOME/.local/npm
     set --export PATH $npm_config_prefix/bin $PATH
+    # For Nim
+    set --export PATH $HOME/.nimble/bin $PATH
 end
 
 # For Flink

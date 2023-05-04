@@ -4,11 +4,12 @@ window_opacity: 0.8
 font:
   normal:
     family: Cascadia Code
+    # family: monospace
     # family: JetBrains Mono
     # family: DejaVu Sans Mono
   bold:
-    # family: Cascadia Code
-    family: monospace
+    family: Cascadia Code
+    # family: monospace
     # family: JetBrains Mono
     # family: DejaVu Sans Mono
     style: bold
