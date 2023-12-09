@@ -13,7 +13,7 @@ font:
     # family: JetBrains Mono
     # family: DejaVu Sans Mono
     style: bold
-  size: 16
+  size: 12
 window:
   dimensions:
     columns: 90
