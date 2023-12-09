@@ -141,19 +141,19 @@ let g:netrw_winsize = 20
 " All necessary plug-ins to support better editor experiences.
 call plug#begin('~/.vim/bundle')
 
-" Plugins I don't always use. Enable it on demand.
+" Plugins I don't always use. Enable them on demand.
+" Plug 'JuliaEditorSupport/julia-vim'
 " Plug 'elixir-lang/vim-elixir'
 " Plug 'mattonrails/vim-mix'
 " Plug 'derekwyatt/vim-scala'
 " Plug 'udalov/kotlin-vim'
-" Plug 'JuliaEditorSupport/julia-vim'
+" Plug 'aklt/plantuml-syntax'
 " Plug 'PProvost/vim-ps1'
 " Plug 'zah/nim.vim'
-" Plug 'aklt/plantuml-syntax'
 
 " An bug: it always complains g:airline_statusline_funcrefs undefined.
-" let g:vaxe_enable_airline_defaults=0
-" Plug 'jdonaldson/vaxe'
+let g:vaxe_enable_airline_defaults=0
+Plug 'jdonaldson/vaxe'
 
 " Plug 'yegappan/lsp'
 
@@ -162,6 +162,7 @@ Plug 'fatih/vim-go'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'mechatroner/rainbow_csv'
+Plug 'janet-lang/janet.vim'
 
 " Let's change our live a bit: Enable LSP for C++. 
 " Note: I used to use yegappan/lsp but dropped it later for two reasons:
@@ -174,7 +175,6 @@ Plug 'mechatroner/rainbow_csv'
 " Meanwhile I didnt' enable mattn/vim-lsp-settings because I want to use
 " OS package to management installation of lsp servers.
 Plug 'prabirshrestha/vim-lsp'
-
 " Plug 'mattn/vim-lsp-settings'
 
 " Themes
@@ -220,10 +220,6 @@ else
     let g:airline_powerline_fonts=1
 endif
 
-" Support LSP. This is a new thing and so far it works only for Vim9.
-" I wish I use a Nvim/Vim compatible version, but I really love
-" LspOutline command from yegappan/lsp plugin.
-
 if executable('zls')
     au User lsp_setup call lsp#register_server({
         \ 'name': 'zls',
@@ -246,6 +242,33 @@ if executable('rust-analyzer')
         \ 'cmd': {server_info->['rust-analyzer']},
         \ 'allowlist': ['rust'],
         \ })
+endif
+
+if executable('haxe-lsp')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'haxe',
+        \ 'cmd': {server_info->['haxe-lsp']},
+        \ 'whitelist': ['haxe'],
+        \ 'initialization_options': {
+        \    'displayServerConfig': {
+        \        'env': {},
+        \        'path': '/usr/bin/haxe',
+        \        'arguments': []
+        \    },
+        \    'displayArguments': ['compile.hxml']
+        \ },
+        \ 'workspace_config': {
+        \    'haxe': {
+        \       'enableDiagnostics': v:true,
+        \       'diagnosticsPathFilter': '',
+        \       'enableCodeLens': v:true,
+        \       'displayPort': 'auto',
+        \       'buildCompletionCache': v:true,
+        \       'codeGeneration': {},
+        \       'format': {}
+        \    },
+        \ }
+    \ })
 endif
 
 function! s:on_lsp_buffer_enabled() abort
