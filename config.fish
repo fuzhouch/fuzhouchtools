@@ -20,6 +20,8 @@ if status --is-login
     set --export PATH $npm_config_prefix/bin $PATH
     # For Nim
     set --export PATH $HOME/.nimble/bin $PATH
+    # For Zig
+    set --export PATH $HOME/.local/zig-master/bin $PATH
 end
 
 # For Flink
@@ -55,7 +57,11 @@ set --export MOZ_ENABLE_WAYLAND "1"
 alias rm "rm -i"
 alias cp "cp -i"
 alias rm "rm -i"
-alias spx "export https_proxy=http://127.0.0.1:8080/ && export http_proxy=http://127.0.0.1:8080/"
+alias spx "export https_proxy=http://127.0.0.1:7890/ && export http_proxy=http://127.0.0.1:7890/"
+
+# Pytorch
+set --export PYTORCH_HOME "$HOME/projects/thirdparty/pytorch-cpu"
+alias pt "source $PYTORCH_HOME/bin/activate.fish && pushd $PYTORCH_HOME"
 
 # Set color scheme to Tomorrow Night
 set -U fish_color_normal normal
