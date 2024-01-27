@@ -15,6 +15,9 @@ mkdir -p $HOME/.config/nvim/syntax
 mkdir -p $HOME/.local/share/nvim
 mkdir -p $HOME/.config/vis
 
+# Language format
+ln -f -s "$CURRENT_PATH/clang-format" $HOME/.clang-format
+
 ln -f -s "$CURRENT_PATH/vimfiles" $HOME/.vim
 ln -f -s "$CURRENT_PATH/vimfiles" $HOME/.local/share/nvim/site
 
@@ -41,7 +44,7 @@ fi
 
 ln -f -s "$CURRENT_PATH/ctags.cnf" $HOME/.ctags
 ln -f -s "$CURRENT_PATH/config.fish" "$HOME/.config/fish/config.fish"
-ln -f -s "$CURRENT_PATH/alacritty.yml" "$HOME/.config/alacritty/alacritty.yml"
+ln -f -s "$CURRENT_PATH/alacritty.toml" "$HOME/.config/alacritty/alacritty.toml"
 ln -f -s "$CURRENT_PATH/fonts.conf" "$HOME/.config/fontconfig/fonts.conf"
 
 # For vis configuration

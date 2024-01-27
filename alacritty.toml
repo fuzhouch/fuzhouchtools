@@ -1,0 +1,21 @@
+[font]
+size = 15
+
+[font.bold]
+family = "Cascadia Code"
+style = "bold"
+
+[font.normal]
+family = "Cascadia Code"
+
+[shell]
+args = ["--login"]
+program = "/usr/bin/fish"
+
+[window]
+title = "Alacritty"
+opacity = 0.8
+
+[window.dimensions]
+columns = 110
+lines = 35
