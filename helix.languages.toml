@@ -1,0 +1,14 @@
+[[language]]
+name = "cpp"
+auto-format = true
+indent = { tab-width = 8, unit = "    " }
+
+[[language]]
+name = "c"
+auto-format = false
+indent = { tab-width = 8, unit = "    " }
+
+[[language]]
+name = "json"
+auto-format = true
+indent = { tab-width = 8, unit = "  " }

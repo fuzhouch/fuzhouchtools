@@ -1,0 +1,4 @@
+theme = "snazzy"
+
+[editor]
+rulers = [72,80]
