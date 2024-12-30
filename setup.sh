@@ -14,6 +14,7 @@ mkdir -p $HOME/.config/nvim
 mkdir -p $HOME/.config/nvim/syntax
 mkdir -p $HOME/.local/share/nvim
 mkdir -p $HOME/.config/vis
+mkdir -p $HOME/.config/nushell
 
 # Language format
 ln -f -s "$CURRENT_PATH/clang-format" $HOME/.clang-format
@@ -49,3 +50,6 @@ ln -f -s "$CURRENT_PATH/fonts.conf" "$HOME/.config/fontconfig/fonts.conf"
 
 # For vis configuration
 ln -f -s "$CURRENT_PATH/visrc.lua" "$HOME/.config/vis/visrc.lua"
+
+# For nushell configuration
+ln -f -s "$CURRENT_PATH/config.nu" "$HOME/.config/nushell/config.nu"
