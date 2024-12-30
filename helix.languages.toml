@@ -12,3 +12,8 @@ indent = { tab-width = 8, unit = "    " }
 name = "json"
 auto-format = true
 indent = { tab-width = 8, unit = "  " }
+
+[[language]]
+name = "zig"
+auto-format = true
+indent = { tab-width = 8, unit = "    " }
