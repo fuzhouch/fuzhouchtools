@@ -21,7 +21,9 @@ if status --is-login
     # For Nim
     set --export PATH $HOME/.nimble/bin $PATH
     # For Zig
-    set --export PATH $HOME/.local/zig-master/bin $PATH
+    # set --export PATH $HOME/.local/zig-master/bin $PATH
+    # For my own built LLVM
+    # set --export PATH $HOME/.local/llvm-release/bin $PATH
 end
 
 # For Flink
