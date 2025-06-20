@@ -24,6 +24,8 @@ if status --is-login
     # set --export PATH $HOME/.local/zig-master/bin $PATH
     # For my own built LLVM
     # set --export PATH $HOME/.local/llvm-release/bin $PATH
+    # FOr ZVM managed zig
+    set --export PATH $HOME/.zvm/bin/ $PATH
 end
 
 # For Flink
