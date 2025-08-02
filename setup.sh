@@ -15,6 +15,8 @@ mkdir -p $HOME/.config/nvim/syntax
 mkdir -p $HOME/.local/share/nvim
 mkdir -p $HOME/.config/vis
 mkdir -p $HOME/.config/nushell
+mkdir -p $HOME/.config/helix
+mkdir -p $HOME/.config/zed
 
 # Language format
 ln -f -s "$CURRENT_PATH/clang-format" $HOME/.clang-format
@@ -53,3 +55,10 @@ ln -f -s "$CURRENT_PATH/visrc.lua" "$HOME/.config/vis/visrc.lua"
 
 # For nushell configuration
 ln -f -s "$CURRENT_PATH/config.nu" "$HOME/.config/nushell/config.nu"
+
+# For helix editor
+ln -f -s "$CURRENT_PATH/helix.config.toml" "$HOME/.config/helix/config.toml"
+ln -f -s "$CURRENT_PATH/helix.languages.toml" "$HOME/.config/helix/languages.toml"
+
+# For zed configuraiton
+ln -f -s "$CURRENT_PATH/zed-settings.json" "$HOME/.config/zed/settings.json"
