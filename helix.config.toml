@@ -1,4 +1,6 @@
 theme = "snazzy"
+# A good alternative
+# theme = "gruvbox_dark_hard"
 
 [editor]
 rulers = [72,80]
