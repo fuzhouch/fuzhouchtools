@@ -61,7 +61,8 @@ set --export MOZ_ENABLE_WAYLAND "1"
 alias rm "rm -i"
 alias cp "cp -i"
 alias rm "rm -i"
-alias spx "export https_proxy=http://127.0.0.1:7890/ && export http_proxy=http://127.0.0.1:7890/"
+alias z "zeditor"
+alias spx "export https_proxy=http://127.0.0.1:10080/ && export http_proxy=http://127.0.0.1:10080/"
 
 # Pytorch
 set --export PYTORCH_HOME "$HOME/projects/thirdparty/pytorch-cpu"
