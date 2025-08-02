@@ -179,7 +179,7 @@ Plug 'prabirshrestha/vim-lsp'
 
 " Themes
 " I use themes from  https://github.com/rafi/awesome-vim-colorschemes
-Plug 'joshdick/onedark.vim'
+" Plug 'joshdick/onedark.vim'
 
 " ===================================================================
 " Syntax highlighting
@@ -209,7 +209,7 @@ endif
 "
 " So I tweak color of comments for better readability. The color settings
 " here is copied from desert color scheme.
-colorscheme onedark
+colorscheme desert
 highlight Normal guibg=#171421
 highlight Comment term=bold ctermfg=11 guifg=#6DCEEB
 highlight Cursor guibg=blue guibg=yellow
