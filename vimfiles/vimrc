@@ -121,7 +121,6 @@ au BufNewFile,BufRead *.go set noexpandtab shiftwidth=8
 
 
 " My hand written syntax highlighting for Bond file.
-" Find definition from https://github.com/Microsoft/bond
 au BufNewFile,BufRead *.bond set ft=bond
 
 " Disable ruler in Cygwin environment. TODO Why did we do it?
@@ -304,7 +303,7 @@ augroup END
 let g:zig_fmt_autosave = 0
 
 
-" Below are my old Microsoft memory. Hope I can reuse them some day.
+" Below are my Windows dev settings. Hope I can reuse them some day.
 if has("win32")
     set selectmode="mouse,key"
     set keymodel="startsel,stopsel"
@@ -315,14 +314,6 @@ if has("win32")
     au BufNewFile,BufRead *.vbs set makeprg=cscript efm=%f(%l%m
     au BufNewFile,BufRead *.js  set makeprg=cscript efm=%f(%l%m
     au BufNewFile,BufRead *.wsf  set makeprg=cscript efm=%f(%l%m
-
-    " Razzle
-    au BufNewFile,BufRead sources set filetype=make
-    au BufNewFile,BufRead dirs set filetype=make
-
-    " Settings for Bing Cosmos. Not available outside Microsoft.
-    au BufNewFile,BufRead *.script set ft=cosmos
-    au BufNewFile,BufRead *.view set ft=cosmos
 
     if has("gui_running")
         set guifont=consolas:h11
