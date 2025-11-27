@@ -51,9 +51,19 @@ set --export EDITOR vim
 set --export JAVA_HOME /usr/lib/jvm/java-11-openjdk
 
 # Input method.
-set --export GTK_IM_MODULE "ibus"
+# NOTE: Gnome + Firefox + Wayland requires GTK_IM_MODULE=wayland.
+# Setting it to GTK_IM_MODULE=ibus will cause input prediction location
+# floating on wrong position for Firefox.
+#
+# Meanwhile, Chrome and Obsidian can crash when GTK_IM_MODULE=wayland.
+# They can only work when GTK_IM_MODULE=ibus.
+#
+# I prefer setting GTK_IM_MODULE to wayland for consistency reason.
+# We can use flatpak override --env to ensure every app has its own
+# environment settings.
+set --export GTK_IM_MODULE "wayland"
 set --export XMODIFIERS    "@im=ibus"
-set --export QT_MODULE     "ibus"
+set --export QT_IM_MODULE  "wayland"
 set --export MOZ_GTK_TITLEBAR_DECORATION "client"
 set --export MOZ_ENABLE_WAYLAND "1"
 
