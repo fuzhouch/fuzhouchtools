@@ -7,15 +7,45 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "icon_theme": "Material Icon Theme",
   "agent": {
-    "model_parameters": [],
+    "profiles": {
+      "code": {
+        "name": "Code",
+        "tools": {
+          "terminal": false,
+          "create_directory": true,
+          "copy_path": false,
+          "move_path": true,
+          "delete_path": true,
+          "edit_file": true,
+          "contents": true,
+          "diagnostics": true,
+          "fetch": true,
+          "list_directory": true,
+          "project_notifications": false,
+          "now": true,
+          "find_path": true,
+          "read_file": true,
+          "open": false,
+          "grep": true,
+          "thinking": true,
+          "web_search": true
+        },
+        "enable_all_context_servers": false,
+        "context_servers": {}
+      }
+    },
     "default_model": {
-      "provider": "zed.dev",
-      "model": "claude-sonnet-4"
-    }
+      "provider": "google",
+      "model": "gemini-2.5-pro"
+    },
+    "default_profile": "code",
+    "always_allow_tool_actions": true,
+    "model_parameters": []
   },
   "edit_predictions": {
-    "mode": "eager",
+    "mode": "subtle",
     "copilot": {
       "proxy": "socks5://127.0.0.1:10081",
       "proxy_no_verify": null
@@ -23,13 +53,13 @@
     "enabled_in_text_threads": false
   },
   "ui_font_size": 18,
-  "buffer_font_size": 16,
-  "wrap_guides": [72, 120],
+  "buffer_font_size": 14,
+  "wrap_guides": [72, 90],
   "preferred_line_length": 80,
   "theme": {
     "mode": "system",
     "light": "One Light",
-    "dark": "Gruvbox Dark Hard"
+    "dark": "0x96f Theme"
   },
   "proxy": "socks5://127.0.0.1:10081"
 }
