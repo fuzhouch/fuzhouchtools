@@ -17,6 +17,7 @@ mkdir -p $HOME/.config/vis
 mkdir -p $HOME/.config/nushell
 mkdir -p $HOME/.config/helix
 mkdir -p $HOME/.config/zed
+mkdir -p $HOME/.config/clangd
 
 # Language format
 ln -f -s "$CURRENT_PATH/clang-format" $HOME/.clang-format
@@ -62,3 +63,6 @@ ln -f -s "$CURRENT_PATH/helix.languages.toml" "$HOME/.config/helix/languages.tom
 
 # For zed configuraiton
 ln -f -s "$CURRENT_PATH/zed-settings.json" "$HOME/.config/zed/settings.json"
+
+# For clangd to support C++20 features like module
+ln -f -s "$CURRENT_PATH/clangd.config.yaml" "$HOME/.config/clangd/config.yaml"
